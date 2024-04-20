@@ -1,0 +1,56 @@
+Based on the routes we've defined, let's design a basic database structure using PostgreSQL and Prisma. We'll define tables/entities to store user information, candidate profiles, interviewer profiles, interviews, job postings, resources, feedback, and any other relevant data. Here's a suggested database structure:
+
+1. **User Table:**
+   - id (Primary Key)
+   - email/mobile (Unique)
+   - password_hash
+   - role (Candidate, Interviewer)
+
+2. **Candidate Profile Table:**
+   - id (Primary Key, Foreign Key referencing User)
+   - name
+   - skills
+   - preferences
+   - other_profile_details
+
+3. **Interviewer Profile Table:**
+   - id (Primary Key, Foreign Key referencing User)
+   - company_name
+   - industry
+   - other_profile_details
+
+4. **Interview Table:**
+   - id (Primary Key)
+   - candidate_id (Foreign Key referencing Candidate Profile)
+   - interviewer_id (Foreign Key referencing Interviewer Profile)
+   - job_id (Foreign Key referencing Job Posting)
+   - scheduled_datetime
+   - status (Scheduled, In Progress, Completed, Cancelled)
+   - feedback (Optional, Foreign Key referencing Feedback)
+
+5. **Job Posting Table:**
+   - id (Primary Key)
+   - title
+   - description
+   - requirements
+   - company_id (Foreign Key referencing Interviewer Profile)
+   - posted_datetime
+
+6. **Resource Table:**
+   - id (Primary Key)
+   - title
+   - type (Article, Video, Sample Question)
+   - content
+   - author
+   - posted_datetime
+
+7. **Feedback Table:**
+   - id (Primary Key)
+   - interview_id (Foreign Key referencing Interview)
+   - content
+   - rating (Optional)
+   - submitted_datetime
+
+This database structure allows for storing user credentials, candidate and interviewer profiles, interview details, job postings, resources, and feedback. Relationships between entities are established using foreign keys. You can further enhance this structure by adding constraints, indexes, or additional fields as needed based on your application's requirements.
+
+Prisma makes it easy to define these models and establish relationships between them using its schema definition language. You can then generate database migrations and interact with the database using Prisma Client in your Node.js application.
